@@ -1,59 +1,96 @@
-/*2- O cardápio de uma casa de lanches é dado pela tabela abaixo:
-Código Produto Preço Unitário (R$)
----------------------------------
-100  Cachorro quente   R$ 1,70
-101   Bauru Simples    R$ 2,30
-102   Bauru com ovo    R$ 2,60
-103   Hamburguer       R$ 2,40
-104   Cheeseburguer    R$ 2,50
-105   Refrigerante     R$ 1,00
-----------------------------------
-Escreva um algoritmo que leia o código do item adquirido pelo consumidor e a
-quantidade, calculando e mostrando o valor a pagar. Não será necessário exibir o produto
-e o valor, somente o valor final*/
+/*3- Crie um programa que funcione para uma votação eleitoral. Existem três Opcoes:
+33 - José Couve
+25 - Joana Bravo
+10 - Roberto Nove
+0 - Voto branco
+4 - Voto nulo
+
+Deseja-se saber:
+- O candidato vencedor;
+- O total de votos em branco;
+- O total de votos nulos;*/
   
 using System;
 
 class MainClass {
-  public static double CalculaTotal (int codigo, int q){
-    double preco;
-    if (q<1){
-      Console.WriteLine("Quantidade invalida!!!");
-      return -1;
-    }
-    switch (codigo)
-    {
-     case 100:
-      preco = 1.7;
-      return (preco*Convert.ToSingle(q));
-     case 101:
-      preco = 2.3;
-       return (preco*Convert.ToSingle(q));
-     case 102:
-      preco = 2.6;
-       return (preco*Convert.ToSingle(q));
-     case 103:
-      preco = 2.4;
-      return (preco*Convert.ToSingle(q));
-     case 104:
-      preco = 2.5;
-      return (preco*Convert.ToSingle(q));
-     case 105:
-      preco = 1.0;
-      return (preco*Convert.ToSingle(q));
-     default: 
-      Console.WriteLine("Codigo não cadastrado!!!");
-      return -1; 
-    }
-  } 
-  public static void Main () {
-    
-    int codigo, quantidade;
 
-    Console.WriteLine("Digite o código do produto: ");
-    codigo = int.Parse(Console.ReadLine());
-    Console.WriteLine("Digite a quantidade consumida: ");
-    quantidade = int.Parse(Console.ReadLine());
-    Console.WriteLine("Valor Final: {0} ", CalculaTotal(codigo,quantidade));
-  } 
+  
+
+  public static void Votacao() {
+    string candidato;
+      
+    int jose = 0;
+    int joana = 0;
+    int roberto = 0;
+    int branco = 0;
+    int nulo = 0;
+    
+     do
+    {
+      Opcoes();
+      Console.WriteLine("Digite sua opção de voto: ");
+      candidato = Console.ReadLine();
+      switch (candidato) {
+        case "33":
+          jose++;
+          break;
+        case "25":
+          joana++;
+          break;
+        case "10":
+          roberto++;
+          break;
+        case "0":
+          branco++;
+          break;
+        case "4":
+          nulo++;
+          break; 
+        default:
+          Console.WriteLine("Opção invalida, tente novamente!");
+          break;
+      }
+      Console.WriteLine("Aperte 'ESC' para finalizar a votação ou outra tecla para continuar a votação");
+    } while (Console.ReadKey().Key != ConsoleKey.Escape);
+    FinalizaVot(jose, joana, roberto, branco, nulo);
+  }
+     
+  public static void FinalizaVot(int jose, int joana, int roberto, int branco, int nulo){
+    if (jose > joana && jose > roberto)
+     {
+       Console.WriteLine("O vencedor foi: José Couve com {0} votos", jose);
+     }
+    else if (joana > jose && joana > roberto){
+       Console.WriteLine("O vencedor foi: Joana Bravo com {0} votos", joana);
+    }    
+    else if(roberto > jose && roberto > joana)
+     {
+       Console.WriteLine("O vencedor foi: Roberto Nove com {0} votos", roberto);
+     }
+    else {
+      Console.WriteLine("Empate na votação!");
+    }
+    Console.WriteLine("Nulos: {0}",nulo);
+    Console.WriteLine("Brancos: {0}",branco);
+  }
+  
+
+
+  public static void Opcoes(){
+   Console.WriteLine("------------------");
+   Console.WriteLine("|33 - José Couve  |");
+   Console.WriteLine("------------------");
+   Console.WriteLine("|25 - Joana Bravo |");
+   Console.WriteLine("------------------");
+   Console.WriteLine("|10 - Roberto Nove|");
+   Console.WriteLine("------------------");
+   Console.WriteLine("|0  - Voto branco |");
+   Console.WriteLine("------------------");
+   Console.WriteLine("|4  - Voto nulo   |");
+   Console.WriteLine("------------------");
+  }
+  
+  public static void Main () {
+    Votacao();
+  }
 }
